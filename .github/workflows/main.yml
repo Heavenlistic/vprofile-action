@@ -6,7 +6,7 @@ on:
 env:
   AWS_REGION: us-east-1                     # AWS region for resources
   ECR_REPOSITORY: vprofileapp
-  EKS_CLUSTER: vprofile-new-eks                 # EKS cluster name
+  EKS_CLUSTER: vprofile-new-eks             # EKS cluster name
 
 jobs:
   Testing:
@@ -43,11 +43,11 @@ jobs:
             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
             -Dsonar.java.binaries=**/target/classes
 
-      - name: SonarQube Quality Gate Check
+      - name: SonarCloud Quality Gate Check
         id: sonarqube-quality-gate-check
-        uses: SonarSource/sonar-quality-gate-action@master
+        uses: SonarSource/sonarcloud-github-action@v1.3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
         with:
-          timeout-minutes: 5 # Timeout in minutes (e.g., 5 minutes)
+          timeout-minutes: 5  # Timeout in minutes (e.g., 5 minutes)
