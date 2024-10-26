@@ -4,9 +4,9 @@ on:
   workflow_dispatch
 
 env:
-  AWS_REGION: us-east-1                     # AWS region for resources
+  AWS_REGION: us-east-1
   ECR_REPOSITORY: vprofileapp
-  EKS_CLUSTER: vprofile-new-eks             # EKS cluster name
+  EKS_CLUSTER: vprofile-new-eks
 
 jobs:
   Testing:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Maven Build
-        run: mvn clean compile                 # Ensures binaries are generated in target/classes
+        run: mvn clean compile
 
       - name: Maven Test
         run: mvn test
@@ -44,7 +44,7 @@ jobs:
             -Dsonar.junit.reportPaths=target/surefire-reports \
             -Dsonar.jacoco.reportPaths=target/jacoco.exec \
             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
-            -Dsonar.java.binaries=target/classes  # Updated binary path
+            -Dsonar.java.binaries=target/classes
 
       - name: SonarCloud Quality Gate Check
         id: sonarqube-quality-gate-check
@@ -53,5 +53,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
         with:
-          timeout-minutes: 5  # Timeout in minutes
-####
+          timeout-minutes: 5
